@@ -1,0 +1,17 @@
+<?php
+
+namespace Zea\RestLibrary\Traits;
+
+trait LoaderTrait
+{
+    public function load($data, $keys): void
+    {
+        if ($data && is_array($data)) {
+            foreach ($keys as $key) {
+                if (isset($data[$key])) {
+                    $this->$key = $data[$key];
+                }
+            }
+        }
+    }
+}
