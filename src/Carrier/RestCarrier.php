@@ -24,6 +24,8 @@ class RestCarrier extends Carrier
             $add = ['instrument' => $arguments['instrument']];
         }elseif ($action == 'query'){
             $add = [$arguments];
+        }elseif ($action == 'reverse'){
+            $add = [$arguments];
         }
 
         try {
@@ -77,23 +79,19 @@ class RestCarrier extends Carrier
         return new QueryResponse($result);
     }
 
-//    public function query(string $requestId): RedirectInformation
-//    {
-//        $result = $this->makeRequest($this->settings->baseUrl('api/session/' . $requestId), []);
-//        return new RedirectInformation($result);
-//    }
-
     public function collect(CollectRequest $collectRequest): RedirectInformation
     {
         $result = $this->makeRequest($this->settings->baseUrl('api/collect'), $collectRequest->toArray());
         return new RedirectInformation($result);
     }
 
-    public function reverse(string $transactionId): ReverseResponse
+    public function reverse(array $reverseRequest): ReverseResponse
     {
-        $result = $this->makeRequest($this->settings->baseUrl('api/reverse'), [
-            'internalReference' => $transactionId,
-        ]);
+        $result = $this->makeRequest($this->settings->baseUrl('gateway/transaction'), [
+            'internalReference' => $reverseRequest['internalReference'],
+            'authorization' => $reverseRequest['authorization'],
+            'action' => 'reverse'
+        ], 'reverse');
         return new ReverseResponse($result);
     }
 }

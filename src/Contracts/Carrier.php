@@ -23,11 +23,9 @@ abstract class Carrier
 
     abstract public function process(ProcessRequest $processRequest): ProcessResponse;
 
-    abstract public function request(RedirectRequest $redirectRequest): RedirectResponse;
-
     abstract public function query(string $internalReference): QueryResponse;
 
     abstract public function collect(CollectRequest $collectRequest): RedirectInformation;
 
-    abstract public function reverse(string $transactionId): ReverseResponse;
+    abstract public function reverse(array $reverseRequest): ReverseResponse;
 }

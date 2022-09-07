@@ -39,4 +39,9 @@ class PlacetoPay
     {
         return $this->settings->carrier()->query($internalReference);
     }
+
+    public function reverse(array $reverseRequest): ReverseResponse
+    {
+        return $this->settings->carrier()->reverse($reverseRequest);
+    }
 }

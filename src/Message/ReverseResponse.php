@@ -11,24 +11,19 @@ class ReverseResponse extends Entity
 {
     use StatusTrait;
 
-    protected ?Transaction $payment = null;
-
-    public function payment(): ?Transaction
-    {
-        return $this->payment;
-    }
+    protected array $response = [];
 
     public function __construct($data = [])
     {
-        $this->loadEntity($data['status'] ?? null, 'status', Status::class);
-        $this->loadEntity($data['payment'] ?? null, 'payment', Transaction::class);
+        $this->loadEntity($data['status'], 'status', Status::class);
+        $this->response = $data;
     }
 
     public function toArray(): array
     {
         return $this->arrayFilter([
             'status' => $this->status()->toArray(),
-            'payment' => $this->payment() ? $this->payment()->toArray() : null,
+            'response' => $this->response,
         ]);
     }
 }
