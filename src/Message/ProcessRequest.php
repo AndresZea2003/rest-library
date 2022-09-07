@@ -172,6 +172,7 @@ class ProcessRequest extends Entity
             'payer' => $this->payer() ? $this->payer()->toArray() : null,
             'buyer' => $this->buyer() ? $this->buyer()->toArray() : null,
             'payment' => $this->payment() ? $this->payment()->toArray() : null,
+            'instrument' => $this->instrument(),
             'subscription' => $this->subscription() ? $this->subscription()->toArray() : null,
             'fields' => $this->fieldsToArray(),
             'paymentMethod' => $this->paymentMethod(),

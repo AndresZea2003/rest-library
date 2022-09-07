@@ -35,6 +35,11 @@ class PlacetoPay
         return $this->settings->carrier()->process($processRequest);
     }
 
+    public function query(int $internalReference)
+    {
+        return $this->settings->carrier()->query($internalReference);
+    }
+
     /**
      * @param RedirectRequest|array $redirectRequest
      * @throws PlacetoPayException
@@ -51,12 +56,6 @@ class PlacetoPay
 
         return $this->settings->carrier()->request($redirectRequest);
     }
-
-    public function query(int $requestId): RedirectInformation
-    {
-        return $this->settings->carrier()->query($requestId);
-    }
-
     /**
      * @param CollectRequest|array $collectRequest
      * @throws PlacetoPayException

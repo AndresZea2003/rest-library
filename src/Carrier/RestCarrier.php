@@ -12,21 +12,24 @@ use Zea\RestLibrary\Message\RedirectInformation;
 use Zea\RestLibrary\Message\RedirectRequest;
 use Zea\RestLibrary\Message\RedirectResponse;
 use Zea\RestLibrary\Message\ReverseResponse;
+use Zea\RestLibrary\Message\QueryResponse;
 use GuzzleHttp\Exception\BadResponseException;
 use Throwable;
 
 class RestCarrier extends Carrier
 {
-    private function makeRequest(string $url, object $arguments): array
+    private function makeRequest(string $url, array $arguments, string $action): array
     {
-        $instrument = $arguments->instrument();
-
-        $arguments = $arguments->toArray();
+        if($action == 'process'){
+            $add = ['instrument' => $arguments['instrument']];
+        }elseif ($action == 'query'){
+            $add = [$arguments];
+        }
 
         try {
             $data = array_merge($arguments, [
                 'auth' => $this->settings->authentication()->asArray(),
-                'instrument' => $instrument
+                $add
                 ]);
 
             $this->settings->logger()->debug('REQUEST', $data);
@@ -52,7 +55,6 @@ class RestCarrier extends Carrier
             ]);
             throw PlacetoPayServiceException::fromServiceException($exception);
         }
-
         return json_decode($result, true);
     }
 
@@ -64,16 +66,22 @@ class RestCarrier extends Carrier
 
     public function process(ProcessRequest $processRequest): ProcessResponse
     {
-        $result = $this->makeRequest($this->settings->baseUrl('gateway/process'), $processRequest);
+        $result = $this->makeRequest($this->settings->baseUrl('gateway/process'), $processRequest->toArray(), 'process');
         return new ProcessResponse($result);
 //        return new ProcessResponse($result);
     }
 
-    public function query(string $requestId): RedirectInformation
+    public function query(string $internalReference): QueryResponse
     {
-        $result = $this->makeRequest($this->settings->baseUrl('api/session/' . $requestId), []);
-        return new RedirectInformation($result);
+        $result = $this->makeRequest($this->settings->baseUrl('gateway/query'), ['internalReference' => $internalReference], 'query');
+        return new QueryResponse($result);
     }
+
+//    public function query(string $requestId): RedirectInformation
+//    {
+//        $result = $this->makeRequest($this->settings->baseUrl('api/session/' . $requestId), []);
+//        return new RedirectInformation($result);
+//    }
 
     public function collect(CollectRequest $collectRequest): RedirectInformation
     {

@@ -4,10 +4,11 @@ namespace Zea\RestLibrary\Message;
 
 use Zea\RestLibrary\Contracts\Entity;
 use Zea\RestLibrary\Entities\Status;
-use Zea\RestLibrary\Entities\Payment;
+use Zea\RestLibrary\Entities\SubscriptionInformation;
+use Zea\RestLibrary\Entities\Transaction;
 use Zea\RestLibrary\Traits\StatusTrait;
 
-class ProcessResponse extends Entity
+class QueryResponse extends Entity
 {
     use StatusTrait;
 

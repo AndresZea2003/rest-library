@@ -10,6 +10,7 @@ use Zea\RestLibrary\Message\RedirectResponse;
 use Zea\RestLibrary\Message\ReverseResponse;
 use Zea\RestLibrary\Message\ProcessRequest;
 use Zea\RestLibrary\Message\ProcessResponse;
+use Zea\RestLibrary\Message\QueryResponse;
 
 abstract class Carrier
 {
@@ -24,7 +25,7 @@ abstract class Carrier
 
     abstract public function request(RedirectRequest $redirectRequest): RedirectResponse;
 
-    abstract public function query(string $requestId): RedirectInformation;
+    abstract public function query(string $internalReference): QueryResponse;
 
     abstract public function collect(CollectRequest $collectRequest): RedirectInformation;
 
