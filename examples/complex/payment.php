@@ -78,7 +78,7 @@ try {
 
     if ($response->isSuccessful()) {
         // Redirect the client to the processUrl or display it on the JS extension
-        // $response->processUrl();
+        // $response->toArray()['response'];
     } else {
         // There was some error so check the message
         // $response->status()->message();

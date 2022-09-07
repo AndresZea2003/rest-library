@@ -61,9 +61,24 @@ $response = $placetopay->process($request);
 if ($response->isSuccessful()) {
     // STORE THE $response->requestId() and $response->processUrl() on your DB associated with the payment order
     // Redirect the client to the processUrl or display it on the JS extension
-    $response->processUrl();
+    $response->toArray()['response'];
 } else {
     // There was some error so check the message and log it
     $response->status()->message();
+}
+```
+### Obtain information about a previously made payment
+
+```
+$response = $placetopay->query('THE_INTERNAL_REFERENCE_TO_QUERY');
+
+if ($response->isSuccessful()) {
+
+    if ($response->status()->isApproved()) {
+        // The payment has been approved
+    }
+} else {
+    // There was some error with the connection so check the message
+    print_r($response->status()->message() . "\n");
 }
 ```
