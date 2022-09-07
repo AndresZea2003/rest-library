@@ -28,7 +28,7 @@ $placetopay = new Zea\RestLibrary\PlacetoPay([
 ]);
 ```
 
-### Creating a new payment request to get a Session Payment Response
+### Creating a new payment request to get a Payment Response
 
 Simply provide the necessary payment information and you will get a Process Response if successful, for this example,
 are using the MINIMUM INFORMATION that must be provided, to see the complete structure, consult the documentation or the
