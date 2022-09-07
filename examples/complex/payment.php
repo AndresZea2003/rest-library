@@ -61,14 +61,20 @@ $request = json_decode('{
             "mobile": null
         }
     },
-    "returnUrl": "https:\/\/www.ciudaddemascotas.com\/Perros\/placetopay\/processing\/response\/?reference=300038996",
-    "expiration": "' . date('c', strtotime('+2 days')) . '",
+    "instrument": {
+    "card": {
+        "number": "36545400000008",
+            "expiration": "12/20",
+            "cvv": "123",
+            "installments": 2
+        }
+    },
     "ipAddress": "190.249.138.19",
     "userAgent": "Mozilla\/5.0 (X11; Linux x86_64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/55.0.2883.87 Safari\/537.36"
 }', true);
 
 try {
-    $response = placetopay()->request($request);
+    $response = placetopay()->process($request);
 
     if ($response->isSuccessful()) {
         // Redirect the client to the processUrl or display it on the JS extension
