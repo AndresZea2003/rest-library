@@ -5,11 +5,10 @@ namespace Zea\RestLibrary\Contracts;
 use Zea\RestLibrary\Helpers\Settings;
 use Zea\RestLibrary\Message\CollectRequest;
 use Zea\RestLibrary\Message\RedirectInformation;
-use Zea\RestLibrary\Message\RedirectRequest;
-use Zea\RestLibrary\Message\RedirectResponse;
 use Zea\RestLibrary\Message\ReverseResponse;
 use Zea\RestLibrary\Message\ProcessRequest;
 use Zea\RestLibrary\Message\ProcessResponse;
+use Zea\RestLibrary\Message\Response;
 use Zea\RestLibrary\Message\QueryResponse;
 
 abstract class Carrier
@@ -28,4 +27,6 @@ abstract class Carrier
     abstract public function collect(CollectRequest $collectRequest): RedirectInformation;
 
     abstract public function reverse(array $reverseRequest): ReverseResponse;
+
+    abstract public function information(array $informationRequest): Response;
 }

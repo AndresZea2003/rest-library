@@ -5,10 +5,12 @@ namespace Zea\RestLibrary;
 use Zea\RestLibrary\Exceptions\PlacetoPayException;
 use Zea\RestLibrary\Helpers\Settings;
 use Zea\RestLibrary\Message\CollectRequest;
+use Zea\RestLibrary\Message\InformationRequest;
 use Zea\RestLibrary\Message\Notification;
 use Zea\RestLibrary\Message\RedirectInformation;
 use Zea\RestLibrary\Message\RedirectRequest;
 use Zea\RestLibrary\Message\RedirectResponse;
+use Zea\RestLibrary\Message\Response;
 use Zea\RestLibrary\Message\ReverseResponse;
 use Zea\RestLibrary\Message\ProcessRequest;
 use Zea\RestLibrary\Message\ProcessResponse;
@@ -43,5 +45,10 @@ class PlacetoPay
     public function reverse(array $reverseRequest): ReverseResponse
     {
         return $this->settings->carrier()->reverse($reverseRequest);
+    }
+
+    public function information(array $informationRequest): Response
+    {
+        return $this->settings->carrier()->information($informationRequest);
     }
 }

@@ -17,24 +17,18 @@ class ProcessRequest extends Entity
     protected ?Person $buyer = null;
     protected ?DispersionPayment $payment = null;
     protected ?Subscription $subscription = null;
-//    protected string $returnUrl;
     protected string $paymentMethod = '';
     protected string $cancelUrl = '';
     protected string $ipAddress;
     protected string $userAgent;
     protected array $instrument;
-//    protected string $expiration;
     protected bool $captureAddress = false;
     protected bool $skipResult = false;
     protected bool $noBuyerFill = false;
 
     public function __construct($data = [])
     {
-
-        // Setting the default values
-//        if (!isset($data['expiration'])) {
-//            $this->expiration = date('c', strtotime('+1 day'));
-//        }
+        
         $this->load($data, ['paymentMethod', 'cancelUrl', 'ipAddress', 'userAgent', 'captureAddress', 'skipResult', 'noBuyerFill']);
         if (isset($data['locale'])) {
             $this->setLocale($data['locale']);

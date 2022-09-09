@@ -3,6 +3,7 @@
 namespace Zea\RestLibrary\Carrier;
 
 use Zea\RestLibrary\Contracts\Carrier;
+use Zea\RestLibrary\Contracts\InformationResponse;
 use Zea\RestLibrary\Exceptions\PlacetoPayException;
 use Zea\RestLibrary\Exceptions\PlacetoPayServiceException;
 use Zea\RestLibrary\Message\CollectRequest;
@@ -13,6 +14,8 @@ use Zea\RestLibrary\Message\RedirectRequest;
 use Zea\RestLibrary\Message\RedirectResponse;
 use Zea\RestLibrary\Message\ReverseResponse;
 use Zea\RestLibrary\Message\QueryResponse;
+use Zea\RestLibrary\Message\InformationRequest;
+use Zea\RestLibrary\Message\Response;
 use GuzzleHttp\Exception\BadResponseException;
 use Throwable;
 
@@ -22,9 +25,7 @@ class RestCarrier extends Carrier
     {
         if($action == 'process'){
             $add = ['instrument' => $arguments['instrument']];
-        }elseif ($action == 'query'){
-            $add = [$arguments];
-        }elseif ($action == 'reverse'){
+        }elseif ($action == 'query' || $action == 'reverse' || $action == 'information'){
             $add = [$arguments];
         }
 
@@ -70,7 +71,6 @@ class RestCarrier extends Carrier
     {
         $result = $this->makeRequest($this->settings->baseUrl('gateway/process'), $processRequest->toArray(), 'process');
         return new ProcessResponse($result);
-//        return new ProcessResponse($result);
     }
 
     public function query(string $internalReference): QueryResponse
@@ -93,5 +93,11 @@ class RestCarrier extends Carrier
             'action' => 'reverse'
         ], 'reverse');
         return new ReverseResponse($result);
+    }
+
+    public function information(array $informationRequest): Response
+    {
+       $result = $this->makeRequest($this->settings->baseUrl('gateway/information'), $informationRequest, 'information');
+       return new Response($result);
     }
 }
