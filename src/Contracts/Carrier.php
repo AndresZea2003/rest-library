@@ -29,4 +29,6 @@ abstract class Carrier
     abstract public function reverse(array $reverseRequest): ReverseResponse;
 
     abstract public function information(array $informationRequest): Response;
+
+    abstract public function tokenize(array $tokenizeRequest): Response;
 }

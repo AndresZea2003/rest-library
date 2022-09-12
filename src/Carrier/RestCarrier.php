@@ -25,7 +25,7 @@ class RestCarrier extends Carrier
     {
         if($action == 'process'){
             $add = ['instrument' => $arguments['instrument']];
-        }elseif ($action == 'query' || $action == 'reverse' || $action == 'information'){
+        }elseif ($action == 'query' || $action == 'reverse' || $action == 'information' || $action == 'tokenize'){
             $add = [$arguments];
         }
 
@@ -99,5 +99,11 @@ class RestCarrier extends Carrier
     {
        $result = $this->makeRequest($this->settings->baseUrl('gateway/information'), $informationRequest, 'information');
        return new Response($result);
+    }
+
+    public function tokenize(array $tokenizeRequest): Response
+    {
+        $result = $this->makeRequest($this->settings->baseUrl('gateway/tokenize'), $tokenizeRequest, 'tokenize');
+        return new Response($result);
     }
 }
