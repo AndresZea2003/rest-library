@@ -31,4 +31,6 @@ abstract class Carrier
     abstract public function information(array $informationRequest): Response;
 
     abstract public function tokenize(array $tokenizeRequest): Response;
+    
+    abstract public function search(array $searchRequest): Response;
 }

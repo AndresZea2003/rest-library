@@ -56,4 +56,9 @@ class PlacetoPay
     {
         return $this->settings->carrier()->tokenize($tokenizeRequest);
     }
+
+    public function search(array $searchRequest): Response
+    {
+        return $this->settings->carrier()->search($searchRequest);
+    }
 }
