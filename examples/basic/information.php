@@ -2,14 +2,13 @@
 
 require_once __DIR__ . '/../bootstrap.php';
 
-// Creating a random reference for the test
-$reference = 'TEST_' . time();
+$card = 'YOUR_CARD_NUMBER_HERE';
 
-// Process Information
+// Information
 $request = [
     'payment' => [
-        'reference' => $reference,
-        'description' => 'Payment Rest test',
+        'reference' => '12345678',
+        'description' => 'Information Test',
         'amount' => [
             'currency' => 'USD',
             'total' => 100,
@@ -18,17 +17,14 @@ $request = [
     ],
     "instrument" => [
         "card" => [
-            "number" => "36545400000008",
-            "expiration" => "12/20",
-            "cvv" => "123",
-            "installments" => 2
+            "number" => $card
         ]
     ],
     'ipAddress' => '127.0.0.1',
     'userAgent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36',
 ];
 
-$response = $placetopay->process($request);
+$response = $this->placetopay->information($request);
 
 if ($response->isSuccessful()) {
     // $response->toArray()['response'];

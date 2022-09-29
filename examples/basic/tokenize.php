@@ -2,33 +2,28 @@
 
 require_once __DIR__ . '/../bootstrap.php';
 
-// Creating a random reference for the test
-$reference = 'TEST_' . time();
+$card = 'YOUR_CARD_NUMBER_HERE';
 
-// Process Information
+// Tokenize Information
 $request = [
-    'payment' => [
-        'reference' => $reference,
-        'description' => 'Payment Rest test',
-        'amount' => [
-            'currency' => 'USD',
-            'total' => 100,
-        ],
-        "allowPartial" => false
+    "payer" => [
+        "name" => "Andres",
+        "surname" => "Zea",
+        "email" => "Zeatest@gmail.com"
     ],
     "instrument" => [
         "card" => [
-            "number" => "36545400000008",
-            "expiration" => "12/20",
+            "number" => $card,
+            "expiration" => "12/18",
             "cvv" => "123",
-            "installments" => 2
+            "installments" => 3
         ]
     ],
     'ipAddress' => '127.0.0.1',
     'userAgent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36',
 ];
 
-$response = $placetopay->process($request);
+$response = $this->placetopay->tokenize($request);
 
 if ($response->isSuccessful()) {
     // $response->toArray()['response'];
