@@ -31,6 +31,7 @@
       "Tests\\": "tests/"
     }
   },
+  "minimum-stability": "dev",
   "scripts": {
     "test": "vendor/bin/phpunit",
     "testdox": "XDEBUG_MODE=coverage vendor/bin/phpunit --testdox --coverage-clover coverage.xml",
